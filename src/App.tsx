@@ -1,41 +1,55 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Task from "./components/Task";
 
 export default function App(){
 //STATE
-const[tasks, setTasks] = useState([
-  {id : 1, value : "tache1 "},
-  {id : 0, value : "tache2 "}
-]);
 
-const [newTask, setNewTask]=useState({id:11, value:"onze"});
+type TaskProps = {id:string ; value:string};
 
-type taskProps = {id:number, value:String};
+const[tasks, setTasks] = useState<TaskProps[]>([]);
+
+const [newTask, setNewTask] = useState<TaskProps>({
+    id:crypto.randomUUID(),
+    value: ""
+});
 
 //COMPORTEMENTS
-const handleDelete = (id : number)=>{
+
+useEffect(()=>{
+  console.log("Les valeurs actuelles dans tasks", tasks);
+},[tasks])
+
+const handleDelete = (id : string)=>{
   console.log("handleDelete")
-  const tasksCopy = [...tasks];
-  const taskCopyUpdated = tasksCopy.filter((task)=>task.id !== id);
-  setTasks(taskCopyUpdated);
+  const tasksCopyForRemove = [...tasks];
+  const tasksCopyForRemoveUpdated = tasksCopyForRemove.filter((task)=>task.id !== id);
+  setTasks(tasksCopyForRemoveUpdated);
 }
 
-const handleSubmit = (event:React.SubmitEvent<HTMLFormElement>)=>{
-    event.preventDefault();
-    console.log("handleSubmit");
-    const idNewTask = 10;
-    const valueNewTask = "dix";
-    const taskToAdd : taskProps = {id:idNewTask , value:valueNewTask}
+const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
+  event.preventDefault();
 
-    console.log(taskToAdd);
-    setNewTask(taskToAdd);
+  if (newTask.value.trim() === "") return;
+
+  const tasksTable = (prev:TaskProps[]):TaskProps[] => [...prev, newTask];
+
+  setTasks(tasksTable);
+  console.log("L'objet newTask ajouté à tasks",newTask);
+
+  // réinitialisation input 
+  // (j'assigne directement un id pour ne mettre que la value ensuite)
+  // Important pour  event.target.value qui ne peut recevoir qu'un string
+  setNewTask({id: crypto.randomUUID(),value: ""});
 };
 
-console.log("la nouvelle tache ",newTask);
+const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const value = event.target.value;
 
-const handleChange = ()=>{
-  console.log("handleChange");
-}
+  const newTaskUpdated = (prev:TaskProps):TaskProps => ({...prev, value: value});
+
+  //mise à jour uniquement sur value
+  setNewTask(newTaskUpdated);
+};
 
 //AFFICHAGE
   return (
@@ -53,16 +67,13 @@ const handleChange = ()=>{
     {/* EDTION D'UNE TACHE */}
       <form 
         onSubmit={handleSubmit}
-
       >
-
         <input 
           type = "text"
           placeholder ="Ajouter une tâche..."
-          value = ""
+          value = {newTask.value}
           onChange = {handleChange}
         />
-
         <button>add</button>
 
       </form>  

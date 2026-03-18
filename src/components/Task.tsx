@@ -1,6 +1,6 @@
 export default function Task({value , onClick}:{
-    key:number, 
-    value:String, 
+    key:string, 
+    value:string, 
     onClick:()=>void}){
     return (
         <li >
