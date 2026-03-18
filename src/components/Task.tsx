@@ -1,12 +1,11 @@
-export default function Task(){
+export default function Task({value , onClick}:{
+    key:number, 
+    value:String, 
+    onClick:()=>void}){
     return (
-        <>
-            <ul>
-                <li>Tache 1 </li>
-                <li>Tache 1 </li>
-                <li>Tache 1 </li>
-            </ul>
-        </>
+        <li >
+            {value}
+            <button onClick = {onClick}>remove</button>
+        </li>
     )
 }
-
