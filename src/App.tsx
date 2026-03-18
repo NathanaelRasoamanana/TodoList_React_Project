@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import Task from "./components/Task";
+import Input from "./components/Input";
 
 export default function App(){
 //STATE
 
-type TaskProps = {id:string ; value:string};
+type TaskProps = {
+  id:string ; 
+  value:string ; 
+  timer?:string; 
+};
 
 const[tasks, setTasks] = useState<TaskProps[]>([]);
 
@@ -51,6 +56,10 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   setNewTask(newTaskUpdated);
 };
 
+const handleTimer = ()=>{
+  console.log("handleTimer");
+}
+
 //AFFICHAGE
   return (
     <>
@@ -68,11 +77,17 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       <form 
         onSubmit={handleSubmit}
       >
-        <input 
+        <Input 
           type = "text"
           placeholder ="Ajouter une tâche..."
           value = {newTask.value}
           onChange = {handleChange}
+        />
+        <Input 
+          type = "datetime-local"
+          placeholder =""
+          value = {newTask.value}
+          onChange = {handleTimer}
         />
         <button>add</button>
 
