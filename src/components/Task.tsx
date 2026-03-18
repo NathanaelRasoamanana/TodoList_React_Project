@@ -10,6 +10,7 @@ export default function Task({value ,timer, onClick}:{
                 Date of due : {timer} <br/>
                 <button onClick = {onClick}>remove</button>
             </li>
+            <br/>
         </>
     )   
 }
