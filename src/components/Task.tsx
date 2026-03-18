@@ -1,11 +1,15 @@
-export default function Task({value , onClick}:{
+export default function Task({value ,timer, onClick}:{
     key:string, 
     value:string, 
+    timer:string,
     onClick:()=>void}){
     return (
-        <li >
-            {value}
-            <button onClick = {onClick}>remove</button>
-        </li>
-    )
+        <>
+            <li>
+                Task : {value} <br/>
+                Date of due : {timer} <br/>
+                <button onClick = {onClick}>remove</button>
+            </li>
+        </>
+    )   
 }

@@ -8,14 +8,15 @@ export default function App(){
 type TaskProps = {
   id:string ; 
   value:string ; 
-  timer?:string; 
+  timer:string; 
 };
 
 const[tasks, setTasks] = useState<TaskProps[]>([]);
 
 const [newTask, setNewTask] = useState<TaskProps>({
     id:crypto.randomUUID(),
-    value: ""
+    value: "", 
+    timer: ""
 });
 
 //COMPORTEMENTS
@@ -43,21 +44,26 @@ const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
 
   // réinitialisation input 
   // (j'assigne directement un id pour ne mettre que la value ensuite)
-  // Important pour  event.target.value qui ne peut recevoir qu'un string
-  setNewTask({id: crypto.randomUUID(),value: ""});
+  // Important pour event.target.value qui ne peut recevoir qu'un string
+  setNewTask({id: crypto.randomUUID(),value: "", timer:""});
 };
 
 const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   const value = event.target.value;
 
-  const newTaskUpdated = (prev:TaskProps):TaskProps => ({...prev, value: value});
+  const newTaskUpdatedValue = (prev:TaskProps):TaskProps => ({...prev, value: value});
 
   //mise à jour uniquement sur value
-  setNewTask(newTaskUpdated);
+  setNewTask(newTaskUpdatedValue);
 };
 
-const handleTimer = ()=>{
+const handleTimer = (event:React.ChangeEvent<HTMLInputElement>)=>{
   console.log("handleTimer");
+  const timer = event.target.value;
+  const newTaskUpdatedTimer = (prev:TaskProps):TaskProps => ({...prev, timer: timer}); 
+
+  //mise à jour uniquement sur timer
+  setNewTask(newTaskUpdatedTimer);
 }
 
 //AFFICHAGE
@@ -69,6 +75,7 @@ const handleTimer = ()=>{
         <Task 
           key = {task.id}
           value = {task.value}
+          timer = {task.timer}
           onClick = {()=>handleDelete(task.id)}
         />))}
       </ul>
@@ -86,7 +93,7 @@ const handleTimer = ()=>{
         <Input 
           type = "datetime-local"
           placeholder =""
-          value = {newTask.value}
+          value = {newTask.timer}
           onChange = {handleTimer}
         />
         <button>add</button>
