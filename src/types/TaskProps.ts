@@ -1,5 +1,6 @@
 export type TaskProps = {
       id:string ; 
       value:string ; 
-      timer:string; 
+      date:string ;
+      time:string ;
 };

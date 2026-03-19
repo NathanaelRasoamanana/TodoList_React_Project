@@ -8,14 +8,15 @@ export default function EditTask({ setTasks }: StateTasksProps){
     const [newTask, setNewTask] = useState<TaskProps>({
         id:crypto.randomUUID(),
         value: "", 
-        timer: ""
+        date :"",
+        time : ""
     });
 
     //COMPORTEMENTS
     const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        if (newTask.value.trim() ===""|| newTask.timer.trim()==="") return;
+        if (newTask.value.trim() ===""|| newTask.date.trim()===""|| newTask.time.trim()==="") return;
 
         const tasksTable = (prev:TaskProps[]):TaskProps[] => [...prev, newTask];
 
@@ -23,10 +24,10 @@ export default function EditTask({ setTasks }: StateTasksProps){
         console.log("L'objet newTask ajouté à tasks",newTask);
 
         // réinitialisation input 
-        setNewTask({id: crypto.randomUUID(),value: "", timer:""});
+        setNewTask({id: crypto.randomUUID(),value: "", date : "", time:""});
     };
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
 
         const newTaskUpdatedValue = (prev:TaskProps):TaskProps => ({...prev, value: value});
@@ -35,13 +36,22 @@ export default function EditTask({ setTasks }: StateTasksProps){
         setNewTask(newTaskUpdatedValue);
     };
 
-    const handleTimer = (event:React.ChangeEvent<HTMLInputElement>)=>{
-        console.log("handleTimer");
-        const timer = event.target.value;
-        const newTaskUpdatedTimer = (prev:TaskProps):TaskProps => ({...prev, timer: timer}); 
+     const handleChangeDate = (event:React.ChangeEvent<HTMLInputElement>)=>{
+        console.log("handleDate");
+        const date = event.target.value;
+        const newTaskUpdatedDate = (prev:TaskProps):TaskProps => ({...prev, date: date}); 
 
-        //mise à jour uniquement sur timer
-        setNewTask(newTaskUpdatedTimer);
+        //mise à jour uniquement sur date
+        setNewTask(newTaskUpdatedDate);
+    }
+
+    const handleChangeTime = (event:React.ChangeEvent<HTMLInputElement>)=>{
+        console.log("handleTime");
+        const time = event.target.value;
+        const newTaskUpdatedTime = (prev:TaskProps):TaskProps => ({...prev, time: time}); 
+
+        //mise à jour uniquement sur time
+        setNewTask(newTaskUpdatedTime);
     }
 
     //AFFICHAGE
@@ -51,17 +61,24 @@ export default function EditTask({ setTasks }: StateTasksProps){
                     onSubmit={handleSubmit}
                   >
                     <Input 
-                      type = "text"
-                      placeholder ="Ajouter une tâche..."
-                      value = {newTask.value}
-                      onChange = {handleChange}
+                        type = "text"
+                        placeholder ="Ajouter une tâche..."
+                        value = {newTask.value}
+                        onChange = {handleChangeValue}
                     />
                     <Input 
-                      type = "datetime-local"
-                      placeholder =""
-                      value = {newTask.timer}
-                      onChange = {handleTimer}
+                        type = "date"
+                        placeholder =""
+                        value = {newTask.date}
+                        onChange = {handleChangeDate}
                     />
+                    <Input 
+                        type = "time"
+                        placeholder =""
+                        value = {newTask.time}
+                        onChange = {handleChangeTime}
+                    />
+                    
                     <button>add</button>
                   </form>  
         </>

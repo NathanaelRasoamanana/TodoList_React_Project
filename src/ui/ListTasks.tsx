@@ -18,7 +18,8 @@ export default function ListTasks({ tasks, setTasks }: StateTasksProps){
                 <Task 
                     key = {task.id}
                     value = {task.value}
-                    timer = {task.timer}
+                    date = {task.date}
+                    time = {task.time}
                     onClick = {()=>handleDelete(task.id)}
                 />))}
             </ul>
