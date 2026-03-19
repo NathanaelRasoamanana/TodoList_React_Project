@@ -15,7 +15,7 @@ export default function EditTask({ setTasks }: StateTasksProps){
     const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        if (newTask.value.trim() === "") return;
+        if (newTask.value.trim() ===""|| newTask.timer.trim()==="") return;
 
         const tasksTable = (prev:TaskProps[]):TaskProps[] => [...prev, newTask];
 
@@ -23,8 +23,6 @@ export default function EditTask({ setTasks }: StateTasksProps){
         console.log("L'objet newTask ajouté à tasks",newTask);
 
         // réinitialisation input 
-        // (j'assigne directement un id pour ne mettre que la value ensuite)
-        // Important pour event.target.value qui ne peut recevoir qu'un string
         setNewTask({id: crypto.randomUUID(),value: "", timer:""});
     };
 
