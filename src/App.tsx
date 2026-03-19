@@ -10,7 +10,7 @@ export default function App(){
   return (
     <>
       <ListTasks tasks={tasks} setTasks={setTasks} />      
-      <EditTask tasks={tasks}  setTasks={setTasks}/>    
+      <EditTask setTasks={setTasks}/>   
     </>
   )
 }

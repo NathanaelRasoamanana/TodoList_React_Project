@@ -3,4 +3,5 @@ export type TaskProps = {
       value:string ; 
       date:string ;
       time:string ;
+      done:boolean;
 };
