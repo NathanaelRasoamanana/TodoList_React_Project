@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import type { TaskProps } from "../types/TaskProps";
 import Input from "../components/Input";
 import { TasksContext } from "../context/TasksContext";
+import Bouton from "../components/Button";
 
 export default function EditTask(){  
     // Consommation du context
@@ -69,7 +70,11 @@ export default function EditTask(){
                     value = {newTask.time}
                     onChange = {handleChangeTime}
                 />    
-                <button>add</button>
+                <Bouton 
+                    type = "submit"
+                    variant="contained"
+                    buttonText="add"
+                />
             </form>  
         </>
     )

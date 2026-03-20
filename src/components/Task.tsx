@@ -35,8 +35,8 @@ export default function Task({value,date,time,onDone,onRemove}:{
                     '& button': { p: 0.5, m: 2 },
                 }}
                 >
-                <Bouton onClick={onDone} buttonText="done" />
-                <Bouton onClick={onRemove} buttonText="remove" />
+                <Bouton variant="outlined" buttonText="done" />
+                <Bouton variant="outlined" onClick={onRemove} buttonText="remove" />
             </Box>
         </>
     )   
