@@ -8,7 +8,6 @@ export default function ListTasks(){
     const {tasks,setTasks} = useContext(TasksContext)  
 
     const handleDelete = (id : string)=>{
-        console.log("handleDelete")
         const tasksCopyForRemove = [...tasks];
         const tasksCopyForRemoveUpdated = tasksCopyForRemove.filter((task)=>task.id !== id);
         setTasks(tasksCopyForRemoveUpdated);
