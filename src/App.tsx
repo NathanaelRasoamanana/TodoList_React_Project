@@ -3,10 +3,18 @@ import ListTasks from "./ui/ListTasks";
 import type { TaskProps } from "./types/TaskProps";
 import EditTask from "./ui/EditTask";
 import { TasksContext } from "./context/TasksContext";
+import Container from '@mui/material/Container';
+
 
 export default function App(){
 
-  const[tasks, setTasks] = useState<TaskProps[]>([]);
+  const[tasks, setTasks] = useState<TaskProps[]>([
+    {id: crypto.randomUUID(),
+      value: "Tâche première", 
+      date : "11/12/2026", 
+      time:"15:00", 
+      done:false}
+  ]);
 
   //Installation du context (provider)
   const valueTasksContext = {
@@ -17,8 +25,10 @@ export default function App(){
   return (
     <TasksContext.Provider value={valueTasksContext}>
       <>
-        <ListTasks/>      
-        <EditTask/>   
+        <Container maxWidth="sm">
+          <EditTask/>   
+          <ListTasks/>    
+        </Container>
       </>
     </TasksContext.Provider>
   )

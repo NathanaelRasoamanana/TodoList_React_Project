@@ -1,14 +1,17 @@
+import Button from '@mui/material/Button';
+
 type ButtonProps = {
     onClick : ()=>void;
-    buttonText : string
+    buttonText : string;
 };
 
-export default function Button({onClick, buttonText}:ButtonProps){
+export default function Bouton({ onClick, buttonText}:ButtonProps){
     return(
-        <>
-            <button onClick={onClick}>
+        <>           
+            <Button variant="outlined" onClick={onClick} size="small">
                 {buttonText}
-            </button>
+            </Button>
         </>
     )
 }
+

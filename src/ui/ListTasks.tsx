@@ -1,7 +1,8 @@
 import { useContext } from "react";
-import Button from "../components/Button";
 import Task from "../components/Task";
 import { TasksContext } from "../context/TasksContext";
+import Card from '@mui/material/Card';
+
 
 export default function ListTasks(){  
     // Consommation du context
@@ -19,31 +20,31 @@ export default function ListTasks(){
         prev.map(task =>
         task.id === id ? { ...task, done: !task.done } : task
         )
-    );
-    };
+    );};
 
     return(
         <>
             <h1>Taches à faire </h1>
-            <ul>{tasks.map((task) => (
-                <li key = {task.id}>
+            {tasks.map((task) => (
+                
+                <Card key={task.id}
+                    sx={{
+                        display: 'inline-block',
+                        width: 'max-content',
+                        height: 'max-content',
+                        m:1
+                    }}
+                >
                     {task.done ? <span>(Task done) </span>:<span>(Task undone) </span>}
                     <Task     
                         value = {task.value}
                         date = {task.date}
                         time = {task.time}
+                        onDone={()=>handleDone(task.id)}
+                        onRemove={()=>handleDelete(task.id)}
                     />
-                    <Button 
-                        onClick={()=>handleDone(task.id)} 
-                        buttonText={task.done ? "undo" : "done"}
-                    />
-                    <Button 
-                        onClick={()=>handleDelete(task.id)} 
-                        buttonText="remove"
-                    /><br/><br/>
-                </li>
-                ))}
-            </ul>        
+                </Card>
+            ))}       
         </>
     )
 }
