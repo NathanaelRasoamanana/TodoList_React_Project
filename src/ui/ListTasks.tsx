@@ -1,15 +1,12 @@
-import { useEffect } from "react";
+import { useContext } from "react";
 import Button from "../components/Button";
 import Task from "../components/Task";
-import type { StateTasksProps } from "../types/StateTaskProps";
+import { TasksContext } from "../context/TasksContext";
 
-export default function ListTasks({ tasks, setTasks }: StateTasksProps){    
+export default function ListTasks(){  
+    // Consommation du context
+    const {tasks,setTasks} = useContext(TasksContext)  
 
-    useEffect(()=>{
-        console.log("Etat du tableau tasks ", tasks);
-    },[tasks]);
-
-    //COMPORTEMENTS
     const handleDelete = (id : string)=>{
         console.log("handleDelete")
         const tasksCopyForRemove = [...tasks];
@@ -17,7 +14,7 @@ export default function ListTasks({ tasks, setTasks }: StateTasksProps){
         setTasks(tasksCopyForRemoveUpdated);
     }
     
-    //je fais un taggle ici, pas une réinitialisation
+    // Je fais un toggle ici, pas une réinitialisation
     const handleDone = (id: string) => {
     setTasks(prev =>
         prev.map(task =>
@@ -26,7 +23,6 @@ export default function ListTasks({ tasks, setTasks }: StateTasksProps){
     );
     };
 
-    //AFFICHAGE
     return(
         <>
             <h1>Taches à faire </h1>

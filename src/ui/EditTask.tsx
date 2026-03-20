@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import type { TaskProps } from "../types/TaskProps";
 import Input from "../components/Input";
-import type { SetTasksProps } from "../types/SetTasksProps";
+import { TasksContext } from "../context/TasksContext";
 
-export default function EditTask({setTasks}:SetTasksProps){    
+export default function EditTask(){  
+    // Consommation du context
+    const {setTasks} = useContext(TasksContext);    
 
-    //STATE
     const [newTask, setNewTask] = useState<TaskProps>({
         id:crypto.randomUUID(),
         value: "", 
@@ -14,14 +15,11 @@ export default function EditTask({setTasks}:SetTasksProps){
         done:false
     });
 
-    //COMPORTEMENTS
     const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
         event.preventDefault();
-
         if (newTask.value.trim() ===""|| newTask.date.trim()===""|| newTask.time.trim()==="") return;
-
+        
         const tasksTable = (prev:TaskProps[]):TaskProps[] => [...prev, newTask];
-
         setTasks(tasksTable);
         console.log("L'objet newTask ajouté à tasks",newTask);
 
@@ -29,34 +27,27 @@ export default function EditTask({setTasks}:SetTasksProps){
         setNewTask({id: crypto.randomUUID(),value: "", date : "", time:"", done:false});
     };
 
+    //mise à jour uniquement sur value
     const handleChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
-
         const newTaskUpdatedValue = (prev:TaskProps):TaskProps => ({...prev, value: value});
-
-        //mise à jour uniquement sur value
         setNewTask(newTaskUpdatedValue);
     };
 
+    //mise à jour uniquement sur date
     const handleChangeDate = (event:React.ChangeEvent<HTMLInputElement>)=>{
-        console.log("handleDate");
         const date = event.target.value;
-        const newTaskUpdatedDate = (prev:TaskProps):TaskProps => ({...prev, date: date}); 
-
-        //mise à jour uniquement sur date
+        const newTaskUpdatedDate = (prev:TaskProps):TaskProps => ({...prev, date: date});     
         setNewTask(newTaskUpdatedDate);
     };
 
+    //mise à jour uniquement sur time
     const handleChangeTime = (event:React.ChangeEvent<HTMLInputElement>)=>{
-        console.log("handleTime");
         const time = event.target.value;
         const newTaskUpdatedTime = (prev:TaskProps):TaskProps => ({...prev, time: time}); 
-
-        //mise à jour uniquement sur time
         setNewTask(newTaskUpdatedTime);
     };
 
-    //AFFICHAGE
     return(
         <>
             <form onSubmit={handleSubmit}>
