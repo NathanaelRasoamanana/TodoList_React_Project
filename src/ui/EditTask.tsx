@@ -1,18 +1,8 @@
 import { useContext, useState } from "react";
 import type { TaskProps } from "../types/TaskProps";
-import Input from "../components/Input";
 import { TasksContext } from "../context/TasksContext";
-
-
-// import {
-//   TextField,
-//   Button,
-//   Box,
-//   Grid,
-//   Typography,
-//   Paper
-// } from "@mui/material";
-
+import { Box,Container,TextField } from "@mui/material";
+import Bouton from "../components/Button";
 
 export default function EditTask(){  
     // Consommation du context
@@ -28,7 +18,7 @@ export default function EditTask(){
 
     const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if (newTask.title.trim() ===""|| newTask.date.trim()==="") return;
+        if (newTask.title.trim() ===""|| newTask.date.trim() === "") return;
         
         const tasksTable = (prev:TaskProps[]):TaskProps[] => [...prev, newTask];
         setTasks(tasksTable);
@@ -52,7 +42,7 @@ export default function EditTask(){
         setNewTask(newTaskUpdatedValue);
     };
 
-    //mise à jour uniquement sur date
+    // mise à jour uniquement sur date
     const handleChangeDate = (event:React.ChangeEvent<HTMLInputElement>)=>{
         const date = event.target.value;
         const newTaskUpdatedDate = (prev:TaskProps):TaskProps => ({...prev, date: date});     
@@ -60,29 +50,46 @@ export default function EditTask(){
     };
 
     return(
-        <>
-            <form onSubmit={handleSubmit}>
-                <Input 
-                    type = "text"
-                    placeholder ="Ajouter une tâche..."
-                    value = {newTask.title}
-                    onChange = {handleChangeTitle}
+        <Container 
+          maxWidth="sm" sx={{
+          display: "grid", 
+          justifyContent: "center", 
+          alignItems: "center"
+        }}
+        >
+            <Box
+                component="form"
+                onSubmit={handleSubmit}
+                sx={{ display: "flex", flexDirection: "column", gap: 2, width: 300 }}
+                >
+                <TextField
+                    label="Ajouter une tâche..."
+                    name="title"
+                    value={newTask.title}
+                    onChange={handleChangeTitle}
+                    required
                 />
-                <Input 
-                    type = "text"
-                    placeholder ="Ajouter une description..."
-                    value = {newTask.description}
-                    onChange = {handleChangeDescri}
-                />
-                <Input 
-                    type = "datetime-local"
-                    placeholder =""
-                    value = {newTask.date}
-                    onChange = {handleChangeDate}
-                />  
-                <button>add</button>
-            </form>  
 
-        </>
+                <TextField
+                    label="Ajouter une descrition..."
+                    name="description"
+                    value={newTask.description}
+                    onChange={handleChangeDescri}
+                />
+                
+                <TextField
+                    type="datetime-local"
+                    value={newTask.date}
+                    onChange={handleChangeDate}
+                    required
+                />
+
+                <Bouton 
+                    type="submit"
+                    variant="contained"
+                    buttonText ="Add"
+                />                  
+            </Box>
+        </Container>
     )
 }

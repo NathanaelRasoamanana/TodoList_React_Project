@@ -3,7 +3,7 @@ import Task from "../components/Task";
 import { TasksContext } from "../context/TasksContext";
 import Card from '@mui/material/Card';
 import Bouton from "../components/Button";
-import { Box } from "@mui/material";
+import { Box, Container } from "@mui/material";
 
 export default function ListTasks(){  
     // Consommation du context
@@ -25,13 +25,20 @@ export default function ListTasks(){
 
     return(
         <>
+        <Container 
+          maxWidth="sm" sx={{
+          display: "grid", 
+          justifyContent: "center", 
+          alignItems: "center"
+        }}
+        >
             <h1>Taches à faire </h1>
             {tasks.map((task) => (
                 <Card key={task.id}
                     sx={{
-                        display: 'inline-block',
-                        width: 'max-content',
-                        height: 'max-content',
+                        display: 'flex',
+                        width: "flex",
+                        height: 'flex',
                         m:1
                     }}
                 >
@@ -46,11 +53,12 @@ export default function ListTasks(){
                         alignItems: 'center','& button': { p: 0.5, m: 2 },
                     }}
                     >
-                        <Bouton variant="outlined" onClick={()=>handleDone(task.id)} buttonText={task.done ? "Undo":"Done"} />
-                        <Bouton variant="outlined" onClick={()=>handleDelete(task.id)} buttonText="remove" /> 
+                        <Bouton type="button" variant="outlined" onClick={()=>handleDone(task.id)} buttonText={task.done ? "Undo":"Done"} />
+                        <Bouton type="button" variant="outlined" onClick={()=>handleDelete(task.id)} buttonText="remove"/> 
                     </Box>
                 </Card>
-            ))}       
+            ))}  
+        </Container>
         </>
     )
 }

@@ -3,8 +3,6 @@ import ListTasks from "./ui/ListTasks";
 import type { TaskProps } from "./types/TaskProps";
 import EditTask from "./ui/EditTask";
 import { TasksContext } from "./context/TasksContext";
-import Container from '@mui/material/Container';
-
 
 export default function App(){
 
@@ -26,10 +24,8 @@ export default function App(){
   return (
     <TasksContext.Provider value={valueTasksContext}>
       <>
-        <Container maxWidth="sm">
-          <EditTask/>   
-          <ListTasks/>    
-        </Container>
+        <EditTask/>  
+        <ListTasks/>    
       </>
     </TasksContext.Provider>
   )

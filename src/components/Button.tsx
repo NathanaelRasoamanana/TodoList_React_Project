@@ -1,17 +1,20 @@
 import Button from '@mui/material/Button';
 
 type ButtonProps = {
-    type?:string
+    type:"submit"|"button"|"reset"
     variant:"contained"|"outlined"|"text"
     onClick? : ()=>void;
     buttonText? : string;
 };
 
-export default function Bouton({variant, onClick, buttonText}:ButtonProps){
+export default function Bouton({type, variant, onClick, buttonText}:ButtonProps){
     return(
         <>           
             <Button 
-                variant={variant} onClick={onClick} size="small">
+                type={type}
+                variant={variant} 
+                onClick={onClick} 
+                size="small">
                 {buttonText}
             </Button>
         </>
