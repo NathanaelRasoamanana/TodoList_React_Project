@@ -9,10 +9,11 @@ import Container from '@mui/material/Container';
 export default function App(){
 
   const[tasks, setTasks] = useState<TaskProps[]>([
-    {id: crypto.randomUUID(),
-      value: "Tâche première", 
+    {
+      id: crypto.randomUUID(),
+      title: "First task ", 
+      description:"La première tâche à faire... ",
       date : "11/12/2026", 
-      time:"15:00", 
       done:false}
   ]);
 

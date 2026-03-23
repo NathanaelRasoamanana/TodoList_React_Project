@@ -1,18 +1,9 @@
 import Box from '@mui/material/Box';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import Bouton from "../components/Button";
+import type { TaskProps } from '../types/TaskProps';
 
-
-
-export default function Task({value,date,time,onDone,onRemove}:{
-    value:string,
-    date:string, 
-    time:string,
-    onDone:()=>void,
-    onRemove:()=>void,
-    }){    
-
+export default function Task({title,description,date}:TaskProps){
     return (
         <>
             <Box sx={{
@@ -21,22 +12,15 @@ export default function Task({value,date,time,onDone,onRemove}:{
             }}>
                 <CardContent sx={{ height: '50%' }}>
                     <Typography variant="h5" component="div">
-                        {value}
+                        {title}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        {date} | {time}              
+                        {date}             
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {description}              
                     </Typography>
                 </CardContent>
-            </Box>
-            
-            <Box sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    '& button': { p: 0.5, m: 2 },
-                }}
-                >
-                <Bouton variant="outlined" buttonText="done" />
-                <Bouton variant="outlined" onClick={onRemove} buttonText="remove" />
             </Box>
         </>
     )   

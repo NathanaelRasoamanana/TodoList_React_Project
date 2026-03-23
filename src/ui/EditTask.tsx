@@ -2,7 +2,17 @@ import { useContext, useState } from "react";
 import type { TaskProps } from "../types/TaskProps";
 import Input from "../components/Input";
 import { TasksContext } from "../context/TasksContext";
-import Bouton from "../components/Button";
+
+
+// import {
+//   TextField,
+//   Button,
+//   Box,
+//   Grid,
+//   Typography,
+//   Paper
+// } from "@mui/material";
+
 
 export default function EditTask(){  
     // Consommation du context
@@ -10,28 +20,35 @@ export default function EditTask(){
 
     const [newTask, setNewTask] = useState<TaskProps>({
         id:crypto.randomUUID(),
-        value: "", 
+        title: "",
+        description:"", 
         date :"",
-        time : "",
         done:false
     });
 
     const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if (newTask.value.trim() ===""|| newTask.date.trim()===""|| newTask.time.trim()==="") return;
+        if (newTask.title.trim() ===""|| newTask.date.trim()==="") return;
         
         const tasksTable = (prev:TaskProps[]):TaskProps[] => [...prev, newTask];
         setTasks(tasksTable);
         console.log("L'objet newTask ajouté à tasks",newTask);
 
         // réinitialisation input 
-        setNewTask({id: crypto.randomUUID(),value: "", date : "", time:"", done:false});
+        setNewTask({id: crypto.randomUUID(),title: "", description:"", date : "", done:false});
     };
 
     //mise à jour uniquement sur value
-    const handleChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        const newTaskUpdatedValue = (prev:TaskProps):TaskProps => ({...prev, value: value});
+    const handleChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const title = event.target.value;
+        const newTaskUpdatedValue = (prev:TaskProps):TaskProps => ({...prev, title: title});
+        setNewTask(newTaskUpdatedValue);
+    };
+
+     //mise à jour uniquement sur value
+    const handleChangeDescri = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const description = event.target.value;
+        const newTaskUpdatedValue = (prev:TaskProps):TaskProps => ({...prev, description: description});
         setNewTask(newTaskUpdatedValue);
     };
 
@@ -42,40 +59,30 @@ export default function EditTask(){
         setNewTask(newTaskUpdatedDate);
     };
 
-    //mise à jour uniquement sur time
-    const handleChangeTime = (event:React.ChangeEvent<HTMLInputElement>)=>{
-        const time = event.target.value;
-        const newTaskUpdatedTime = (prev:TaskProps):TaskProps => ({...prev, time: time}); 
-        setNewTask(newTaskUpdatedTime);
-    };
-
     return(
         <>
             <form onSubmit={handleSubmit}>
                 <Input 
                     type = "text"
                     placeholder ="Ajouter une tâche..."
-                    value = {newTask.value}
-                    onChange = {handleChangeValue}
+                    value = {newTask.title}
+                    onChange = {handleChangeTitle}
                 />
                 <Input 
-                    type = "date"
+                    type = "text"
+                    placeholder ="Ajouter une description..."
+                    value = {newTask.description}
+                    onChange = {handleChangeDescri}
+                />
+                <Input 
+                    type = "datetime-local"
                     placeholder =""
                     value = {newTask.date}
                     onChange = {handleChangeDate}
-                />
-                <Input 
-                    type = "time"
-                    placeholder =""
-                    value = {newTask.time}
-                    onChange = {handleChangeTime}
-                />    
-                <Bouton 
-                    type = "submit"
-                    variant="contained"
-                    buttonText="add"
-                />
+                />  
+                <button>add</button>
             </form>  
+
         </>
     )
 }

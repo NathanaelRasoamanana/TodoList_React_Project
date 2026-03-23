@@ -17,4 +17,3 @@ export default function Bouton({variant, onClick, buttonText}:ButtonProps){
         </>
     )
 }
-

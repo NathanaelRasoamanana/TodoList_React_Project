@@ -1,7 +1,7 @@
 export type TaskProps = {
       id:string ; 
-      value:string ; 
+      title:string ; 
+      description:string ;
       date:string ;
-      time:string ;
       done:boolean;
 };
