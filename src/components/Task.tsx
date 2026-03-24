@@ -3,7 +3,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import type { TaskProps } from '../types/TaskProps';
 
-export default function Task({title,description,date}:TaskProps){
+export default function Task({title,date,description}:TaskProps){
     return (
         <>
             <Box sx={{
@@ -15,7 +15,7 @@ export default function Task({title,description,date}:TaskProps){
                         {title}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        {date}             
+                        {date}           
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                         {description}              

@@ -13,12 +13,6 @@ type FormField = {
 export default function EditTask(){  
     // Consommation du context
     const {tasks, setTasks} = useContext(TasksContext);   
-    
-    // const {
-    //     register, 
-    //     handleSubmit, 
-    //     formState:{errors}
-    // } = useForm<FormField>();
 
     const {
         control, 
@@ -51,6 +45,7 @@ export default function EditTask(){
                     <Controller
                         name="title"
                         control={control}
+                        defaultValue=""
                         rules={{
                             required :"Le titre est requis..",
                             minLength:{
@@ -72,8 +67,9 @@ export default function EditTask(){
                         )}
                     />
 
-                    {/* <Controller 
+                    <Controller 
                         name="description"
+                        defaultValue=""
                         control={control}
                         render={({field})=>(
                              <TextField
@@ -81,10 +77,11 @@ export default function EditTask(){
                                 {...field} 
                             />
                         )}
-                    /> */}
+                    />
 
                     <Controller 
                         name="date"
+                        defaultValue=""
                         control={control}
                         rules={{
                             required:"La date est requise..",
