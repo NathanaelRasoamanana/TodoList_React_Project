@@ -108,6 +108,7 @@ export default function EditTask(){
                     type="submit"
                     variant="contained"
                     buttonText ="Add a task"
+                    txtColor="white"
                 />                  
 
             </Box>

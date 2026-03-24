@@ -2,9 +2,10 @@ import { useContext } from "react";
 import Task from "../components/Task";
 import { TasksContext } from "../context/TasksContext";
 import Card from '@mui/material/Card';
-import Bouton from "../components/Button";
 import { Box, Container } from "@mui/material";
-
+import CheckIcon from '@mui/icons-material/Check';
+import ToggleButton from '@mui/material/ToggleButton';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 
 export default function ListTasks(){  
     // Consommation du context
@@ -53,8 +54,31 @@ export default function ListTasks(){
                         alignItems: 'center','& button': { p: 0.5, m: 2 },
                     }}
                     >
-                        <Bouton type="button" variant="outlined" onClick={()=>handleDone(task.id)} buttonText= {task.done ? "Undo":"Done"} />
-                        <Bouton type="button" variant="outlined" onClick={()=>handleDelete(task.id)} buttonText="remove"/> 
+                            <ToggleButton
+                                value="check"
+                                selected={task.done}
+                                onChange={()=>handleDone(task.id)}
+                                sx={{
+                                    "&.Mui-selected": {
+                                    backgroundColor: "success.main",
+                                    color: "white",
+                                    },
+                                    "&.Mui-selected:hover": {
+                                    backgroundColor: "success.dark",
+                                    }
+                                }}
+                                >
+                                <CheckIcon />                                  
+                            </ToggleButton>
+
+                            <ToggleButton
+                                value="remove"
+                                selected={task.done}
+                                onChange={()=>handleDelete(task.id)}
+                                >
+                                <DeleteOutlinedIcon />
+                            </ToggleButton>
+
                     </Box>
                 </Card>
             ))}  
