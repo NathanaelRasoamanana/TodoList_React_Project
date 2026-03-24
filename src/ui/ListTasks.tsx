@@ -25,6 +25,14 @@ export default function ListTasks(){
         )
     );};
 
+    const triDecroissant = () => {
+        const sortedTasks = [...tasks].sort(
+            (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+        );
+        setTasks(sortedTasks);
+        console.log(sortedTasks);
+    };
+
     return(
         <>
         <Container 
@@ -33,7 +41,12 @@ export default function ListTasks(){
           justifyContent: "center", 
           alignItems: "center"
         }}
-        >
+        ><br/>
+
+            <button onClick={triDecroissant}>
+                TRI DECROISSANT TASKS
+            </button><br/>
+
             {tasks.map((task) => (
                 <Card key={task.id}
                     sx={{

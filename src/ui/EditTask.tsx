@@ -30,6 +30,7 @@ export default function EditTask(){
     };
 
     return(
+ 
         <Container 
           maxWidth="sm" sx={{
           display: "grid", 
@@ -37,6 +38,7 @@ export default function EditTask(){
           alignItems: "center"
         }}
         >
+
             <Box
                 component="form"
                 onSubmit={handleSubmit(onSubmit)}
