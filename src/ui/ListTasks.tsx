@@ -6,6 +6,7 @@ import { Box, Container } from "@mui/material";
 import CheckIcon from '@mui/icons-material/Check';
 import ToggleButton from '@mui/material/ToggleButton';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import { Label } from "@mui/icons-material";
 
 export default function ListTasks(){  
     // Consommation du context
@@ -43,9 +44,21 @@ export default function ListTasks(){
         }}
         ><br/>
 
-            <button onClick={triDecroissant}>
-                TRI DECROISSANT TASKS
-            </button><br/>
+            <ToggleButton
+                value="check"
+                onChange={triDecroissant}
+                sx={{
+                    "&.Mui-selected": {
+                    backgroundColor: "success.main",
+                    color: "white",
+                    },
+                    "&.Mui-selected:hover": {
+                    backgroundColor: "success.dark",
+                    }
+                }}
+                >
+                TRi DESC
+            </ToggleButton>
 
             {tasks.map((task) => (
                 <Card key={task.id}
