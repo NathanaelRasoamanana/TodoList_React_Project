@@ -42,73 +42,74 @@ export default function EditTask(){
                 onSubmit={handleSubmit(onSubmit)}
                 sx={{ display: "flex", flexDirection: "column", gap: 2, width: 300 }}
             >
-                    <Controller
-                        name="title"
-                        control={control}
-                        defaultValue=""
-                        rules={{
-                            required :"Le titre est requis..",
-                            minLength:{
-                                value : 3,
-                                message : "3 caractères minimum"}
-                        }}
-                        render={({field, fieldState})=>(
-                            <>
-                                <TextField              
-                                    label="Ajouter une tâche..."
-                                    {...field} 
-                                />
-                                    {fieldState.error && (
-                                        <Typography sx={{ mt: 2, color:"red"}} >
-                                            {fieldState.error.message}
-                                        </Typography>
-                                    )}
-                            </>
-                        )}
-                    />
-
-                    <Controller 
-                        name="description"
-                        defaultValue=""
-                        control={control}
-                        render={({field})=>(
-                             <TextField
-                                label="Ajouter une description..."
+                <Controller
+                    name="title"
+                    control={control}
+                    defaultValue=""
+                    rules={{
+                        required :"Le titre est requis..",
+                        minLength:{
+                            value : 3,
+                            message : "3 caractères minimum"}
+                    }}
+                    render={({field, fieldState})=>(
+                        <>
+                            <TextField              
+                                label="Titre de la tâche..."
                                 {...field} 
                             />
-                        )}
-                    />
-
-                    <Controller 
-                        name="date"
-                        defaultValue=""
-                        control={control}
-                        rules={{
-                            required:"La date est requise..",
-                            validate: value => {
-                            const isFuture = new Date(value) > new Date();
-                            return (isFuture? isFuture : "La date doit être dans le futur");
-                        }}}
-                        render={({field, fieldState})=>(
-                            <>
-                                <TextField
-                                    type="datetime-local"
-                                    {...field}
-                                />
                                 {fieldState.error && (
                                     <Typography sx={{ mt: 2, color:"red"}} >
                                         {fieldState.error.message}
                                     </Typography>
-                                 )}
-                            </>
-                        )}
-                    />
+                                )}
+                        </>
+                    )}
+                />
+
+                <Controller 
+                    name="description"
+                    defaultValue=""
+                    control={control}
+                    render={({field})=>(
+                            <TextField
+                            label="Description..."
+                            {...field} 
+                        />
+                    )}
+                />
+
+                <Controller 
+                    name="date"
+                    defaultValue=""
+                    control={control}
+                    rules={{
+                        required:"La date est requise..",
+                        validate: value => {
+                        const isFuture = new Date(value) > new Date();
+                        return (isFuture? isFuture : "La date doit être dans le futur");
+                    }}}
+                    render={({field, fieldState})=>(
+                        <>
+                            <TextField
+                                type="datetime-local"
+                                {...field}
+                            />
+                            {fieldState.error && (
+                                <Typography sx={{ mt: 2, color:"red"}} >
+                                    {fieldState.error.message}
+                                </Typography>
+                                )}
+                        </>
+                    )}
+                />
 
                 <Bouton 
                     type="submit"
                     variant="contained"
-                    buttonText ="Add"
+                    buttonText ="Add a task"
                 />                  
+
             </Box>
         </Container>
     )

@@ -3,7 +3,7 @@ import ListTasks from "./ui/ListTasks";
 import type { TaskProps } from "./types/TaskProps";
 import EditTask from "./ui/EditTask";
 import { TasksContext } from "./context/TasksContext";
-// import Form from "./ui/TestController";
+import { Card } from "@mui/material";
 
 export default function App(){
 
@@ -25,9 +25,18 @@ export default function App(){
   return (
     <TasksContext.Provider value={valueTasksContext}>
       <>
-        <EditTask/>  
-        <ListTasks/>
-        {/* <Form/>     */}
+        <Card 
+            sx={{
+                display: 'grid',
+                width: "flex",
+                height: 'flex',
+                m:25,
+                p:2,
+          }}
+        >
+          <EditTask/>  
+          <ListTasks/>
+        </Card>
       </>
     </TasksContext.Provider>
   )

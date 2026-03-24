@@ -5,6 +5,7 @@ import Card from '@mui/material/Card';
 import Bouton from "../components/Button";
 import { Box, Container } from "@mui/material";
 
+
 export default function ListTasks(){  
     // Consommation du context
     const {tasks,setTasks} = useContext(TasksContext)  
@@ -32,20 +33,19 @@ export default function ListTasks(){
           alignItems: "center"
         }}
         >
-            <h1>Taches à faire </h1>
             {tasks.map((task) => (
                 <Card key={task.id}
                     sx={{
                         display: 'flex',
                         width: "flex",
                         height: 'flex',
-                        m:1
+                        m:1,
                     }}
                 >
                     <Task  
-                        id= {task.id}   
+                        id = {task.id}   
                         title = {task.title}
-                        description={task.description}
+                        description = {task.description}
                         date = {task.date}
                         done ={task.done}
                     />
@@ -53,7 +53,7 @@ export default function ListTasks(){
                         alignItems: 'center','& button': { p: 0.5, m: 2 },
                     }}
                     >
-                        <Bouton type="button" variant="outlined" onClick={()=>handleDone(task.id)} buttonText={task.done ? "Undo":"Done"} />
+                        <Bouton type="button" variant="outlined" onClick={()=>handleDone(task.id)} buttonText= {task.done ? "Undo":"Done"} />
                         <Bouton type="button" variant="outlined" onClick={()=>handleDelete(task.id)} buttonText="remove"/> 
                     </Box>
                 </Card>
