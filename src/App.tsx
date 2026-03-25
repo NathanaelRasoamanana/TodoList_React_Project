@@ -12,8 +12,10 @@ export default function App(){
       id: crypto.randomUUID(),
       title: "First task ", 
       description:"La première tâche à faire... ",
-      date : "2026-03-25T14:45", 
-      done:false}
+      date : "2026-03-25T10:45", 
+      done:false,
+      late:false
+    }
   ]);
 
   //Installation du context (provider)

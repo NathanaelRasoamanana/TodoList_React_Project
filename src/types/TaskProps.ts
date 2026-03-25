@@ -4,4 +4,5 @@ export type TaskProps = {
       description:string ;
       date:string;
       done:boolean;
+      late:boolean;
 };

@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import Task from "../components/Task";
 import { TasksContext } from "../context/TasksContext";
 import Card from '@mui/material/Card';
@@ -19,14 +19,18 @@ export default function ListTasks(){
         const tasksCopyForRemoveUpdated = tasksCopyForRemove.filter((task)=>task.id !== id);
         setTasks(tasksCopyForRemoveUpdated);
     }
-    
-    // Je fais un toggle ici, pas une réinitialisation
-    const handleDone = (id: string) => {
-    setTasks(prev =>
-        prev.map(task =>
-        task.id === id ? { ...task, done: !task.done } : task
-        )
-    );};
+
+    // Vérifier automatiquement si une tâche est en retard ---
+    useEffect(() => {
+        const interval = setInterval(() => {
+        setTasks(tasks =>
+            tasks.map(task =>
+            new Date(task.date) < new Date() && !task.done ? { ...task, late: true } : task
+            )
+        );
+        }, 1000); 
+        return () => clearInterval(interval);
+    }, []);
 
     const sortedTasks = useMemo(() => {
         if (sortBy === "none") return tasks;
@@ -38,6 +42,14 @@ export default function ListTasks(){
         }
         return tasks;
     }, [tasks, sortBy]);
+    
+    // Je fais un toggle ici, pas une réinitialisation
+    const handleDone = (id: string) => {
+    setTasks(prev =>
+        prev.map(task =>
+        task.id === id ? { ...task, done: !task.done } : task
+        )
+    );};
 
     return(
         <Container 
@@ -83,6 +95,7 @@ export default function ListTasks(){
                             description = {task.description}
                             date = {task.date}
                             done ={task.done}
+                            late = {task.late}
                         />
 
                         <Box sx={{ 

@@ -3,7 +3,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import type { TaskProps } from '../types/TaskProps';
 
-export default function Task({title,date,description,done}:TaskProps){
+export default function Task({title,date,description,done,late}:TaskProps){
     return (
         <>
             <Box sx={{
@@ -17,6 +17,11 @@ export default function Task({title,date,description,done}:TaskProps){
                         sx={{ textDecoration: done? "line-through":"none"}}
                     >
                         {title}
+                        {late && !done && (
+                            <span style={{ color: "red"}}>
+                                (en retard)
+                            </span>
+                        )}
                     </Typography>
                     <Typography 
                         variant="body2" 
