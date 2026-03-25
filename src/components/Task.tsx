@@ -18,7 +18,10 @@ export default function Task({title,date,description,done,late}:TaskProps){
                     >
                         {title}
                         {late && !done && (
-                            <span style={{ color: "red"}}>
+                            <span style={{ 
+                                color: "red", 
+                                marginLeft: "8px" 
+                            }}>
                                 (en retard)
                             </span>
                         )}
