@@ -20,11 +20,12 @@ export default function EditTask(){
         reset,
     } = useForm<FormField>();
 
+    // J'utilise hook-form pour la gestion du formulaire
+    // Il est controllé parce que la fonction reset()
+    // ne fonctionne pas correctement sinon
     const onSubmit = (data:FormField)=>{
-        console.log("Nouvelle tâche ",data);
-        const newTaskUpdated = ({id: crypto.randomUUID(), title: data.title, description: data.description, date: data.date, done :false});
+        const newTaskUpdated = ({id: crypto.randomUUID(), title: data.title, description: data.description, date: data.date, done :false, late :false});
         const tasksTable = [...tasks, newTaskUpdated];
-        console.log("L'objet newTask ajouté à tasks",tasksTable);
         setTasks(tasksTable);
         reset();
     };
@@ -126,6 +127,7 @@ export default function EditTask(){
                 />                  
 
             </Box>
+            
         </Container>
     )
 }

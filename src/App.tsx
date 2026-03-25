@@ -15,10 +15,17 @@ export default function App(){
       date : "2026-03-25T10:45", 
       done:false,
       late:false
-    }
+    },
+    {
+      id: crypto.randomUUID(),
+      title: "Second task ", 
+      // description:"La seconde tâche à faire... ",
+      date : "2026-04-25T00:00", 
+      done:false,
+      late:false
+    },
   ]);
 
-  //Installation du context (provider)
   const valueTasksContext = {
       tasks : tasks,
       setTasks : setTasks,

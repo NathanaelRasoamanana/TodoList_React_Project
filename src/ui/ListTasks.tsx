@@ -12,15 +12,10 @@ export default function ListTasks(){
     // Consommation du context
     const {tasks,setTasks} = useContext(TasksContext)  
 
+    // Utilisation pour le memo de gestion du tri
     const [sortBy, setSortBy] = useState("none");
 
-    const handleDelete = (id : string)=>{
-        const tasksCopyForRemove = [...tasks];
-        const tasksCopyForRemoveUpdated = tasksCopyForRemove.filter((task)=>task.id !== id);
-        setTasks(tasksCopyForRemoveUpdated);
-    }
-
-    // Vérifier automatiquement si une tâche est en retard ---
+    // Vérifier automatiquement si une tâche est en retard 
     useEffect(() => {
         const interval = setInterval(() => {
         setTasks(tasks =>
@@ -32,6 +27,8 @@ export default function ListTasks(){
         return () => clearInterval(interval);
     }, []);
 
+    // J'utilise un memo pour ne pas modifier le tableau de tâches
+    // lors de l'affichage après le tri
     const sortedTasks = useMemo(() => {
         if (sortBy === "none") return tasks;
 
@@ -42,6 +39,12 @@ export default function ListTasks(){
         }
         return tasks;
     }, [tasks, sortBy]);
+
+    const handleDelete = (id : string)=>{
+        const tasksCopyForRemove = [...tasks];
+        const tasksCopyForRemoveUpdated = tasksCopyForRemove.filter((task)=>task.id !== id);
+        setTasks(tasksCopyForRemoveUpdated);
+    }
     
     // Je fais un toggle ici, pas une réinitialisation
     const handleDone = (id: string) => {
