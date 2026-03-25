@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo, useState } from "react";
 import Task from "../components/Task";
 import { TasksContext } from "../context/TasksContext";
 import Card from '@mui/material/Card';
@@ -6,11 +6,13 @@ import { Box, Container } from "@mui/material";
 import CheckIcon from '@mui/icons-material/Check';
 import ToggleButton from '@mui/material/ToggleButton';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import { Label } from "@mui/icons-material";
+import Bouton from "../components/Button";
 
 export default function ListTasks(){  
     // Consommation du context
     const {tasks,setTasks} = useContext(TasksContext)  
+
+    const [sortBy, setSortBy] = useState("none");
 
     const handleDelete = (id : string)=>{
         const tasksCopyForRemove = [...tasks];
@@ -26,60 +28,68 @@ export default function ListTasks(){
         )
     );};
 
-    const triDecroissant = () => {
-        const sortedTasks = [...tasks].sort(
-            (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-        );
-        setTasks(sortedTasks);
-        console.log(sortedTasks);
-    };
+    const sortedTasks = useMemo(() => {
+        if (sortBy === "none") return tasks;
+
+        if (sortBy === "date-desc") {
+            return [...tasks].sort(
+                (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+            );
+        }
+        return tasks;
+    }, [tasks, sortBy]);
 
     return(
-        <>
         <Container 
-          maxWidth="sm" sx={{
-          display: "grid", 
-          justifyContent: "center", 
-          alignItems: "center"
-        }}
-        ><br/>
-
-            <ToggleButton
-                value="check"
-                onChange={triDecroissant}
-                sx={{
-                    "&.Mui-selected": {
-                    backgroundColor: "success.main",
-                    color: "white",
-                    },
-                    "&.Mui-selected:hover": {
-                    backgroundColor: "success.dark",
-                    }
-                }}
-                >
-                TRi DESC
-            </ToggleButton>
-
-            {tasks.map((task) => (
-                <Card key={task.id}
-                    sx={{
-                        display: 'flex',
-                        width: "flex",
-                        height: 'flex',
-                        m:1,
-                    }}
-                >
-                    <Task  
-                        id = {task.id}   
-                        title = {task.title}
-                        description = {task.description}
-                        date = {task.date}
-                        done ={task.done}
+            maxWidth="sm" sx={{
+            display: "grid", 
+            justifyContent: "center", 
+            alignItems: "center",
+            p:2,
+            }}
+        >
+            <Card>
+                <Box sx={{p:1, gap:1, display: "flex", justifyContent: 'flex-end'}} >
+                    <Bouton
+                        type="button"
+                        buttonText ="Par date"
+                        txtColor="white"
+                        bgcolor="black"
+                        onClick={() => setSortBy("date-desc")}
                     />
-                    <Box sx={{ display: 'flex',
-                        alignItems: 'center','& button': { p: 0.5, m: 2 },
-                    }}
+
+                    <Bouton 
+                        type="button"
+                        buttonText ="Par ajout"
+                        txtColor="white"
+                        bgcolor="black"
+                        onClick={() => setSortBy("none")}
+                    /> 
+                </Box>
+
+                {sortedTasks.map((task) => (
+                    <Card key={task.id}
+                        sx={{
+                            display: 'flex',
+                            width: "flex",
+                            height: 'flex',
+                            m:1,
+                            justifyContent:"space-between",
+                        }}
                     >
+                        <Task  
+                            id = {task.id}   
+                            title = {task.title}
+                            description = {task.description}
+                            date = {task.date}
+                            done ={task.done}
+                        />
+
+                        <Box sx={{ 
+                            display: 'flex',
+                            alignItems: 'center','& button': { p: 0.5, m: 2 },
+                        }}
+                        >
                             <ToggleButton
                                 value="check"
                                 selected={task.done}
@@ -104,11 +114,10 @@ export default function ListTasks(){
                                 >
                                 <DeleteOutlinedIcon />
                             </ToggleButton>
-
-                    </Box>
-                </Card>
-            ))}  
+                        </Box>
+                    </Card>
+                ))}     
+            </Card>
         </Container>
-        </>
     )
 }

@@ -2,13 +2,14 @@ import Button from '@mui/material/Button';
 
 type ButtonProps = {
     type:"submit"|"button"|"reset"
-    variant:"contained"|"outlined"|"text"
+    variant?:"contained"|"outlined"|"text"
     onClick? : ()=>void;
     buttonText? : string;
-    txtColor :string;
+    txtColor? :string;
+    bgcolor? : string;
 };
 
-export default function Bouton({type, variant, onClick, buttonText, txtColor}:ButtonProps){
+export default function Bouton({type, variant, onClick, buttonText, txtColor, bgcolor}:ButtonProps){
     return(
         <>           
             <Button 
@@ -18,7 +19,7 @@ export default function Bouton({type, variant, onClick, buttonText, txtColor}:Bu
                 size="small"
                 sx={{
                     color: txtColor,
-                    bgcolor: "black"
+                    bgcolor: bgcolor
                     }}>
                 {buttonText}
             </Button>

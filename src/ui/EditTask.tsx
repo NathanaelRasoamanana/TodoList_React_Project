@@ -73,12 +73,24 @@ export default function EditTask(){
                     name="description"
                     defaultValue=""
                     control={control}
-                    render={({field})=>(
+                    rules={{
+                        maxLength:{
+                            value : 50,
+                            message : "50 caractères maximum"}
+                    }}
+                    render={({field, fieldState})=>(
+                        <>
                             <TextField
-                            label="Description..."
-                            {...field} 
-                        />
-                    )}
+                                label="Description..."
+                                {...field} 
+                            />
+                            {fieldState.error && (
+                                <Typography sx={{ mt: 2, color:"red"}} >
+                                    {fieldState.error.message}
+                                </Typography>
+                            )}
+                        </>
+                    )}     
                 />
 
                 <Controller 
@@ -108,9 +120,9 @@ export default function EditTask(){
 
                 <Bouton 
                     type="submit"
-                    variant="contained"
-                    buttonText ="Add a task"
+                    buttonText ="Ajouter une tâche"
                     txtColor="white"
+                    bgcolor="black"
                 />                  
 
             </Box>
