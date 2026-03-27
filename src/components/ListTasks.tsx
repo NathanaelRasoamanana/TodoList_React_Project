@@ -1,12 +1,12 @@
 import { useContext, useEffect, useMemo, useState } from "react";
-import Task from "../components/Task";
+import Task from "./Task";
 import { TasksContext } from "../context/TasksContext";
 import Card from '@mui/material/Card';
 import { Box, Container } from "@mui/material";
 import CheckIcon from '@mui/icons-material/Check';
 import ToggleButton from '@mui/material/ToggleButton';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import Bouton from "../components/Button";
+import Bouton from "../ui/Button";
 
 export default function ListTasks(){  
     // Consommation du context
@@ -55,16 +55,19 @@ export default function ListTasks(){
     );};
 
     return(
+        <>
+        
         <Container 
             maxWidth="sm" sx={{
             display: "grid", 
             justifyContent: "center", 
             alignItems: "center",
             p:2,
+            m:2
             }}
         >
-            <Card>
 
+            <Card>
                 <Box sx={{p:1, gap:1, display: "flex", justifyContent: 'flex-end'}} >
                     <Bouton
                         type="button"
@@ -136,5 +139,6 @@ export default function ListTasks(){
                 ))}     
             </Card>
         </Container>
+    </>
     )
 }

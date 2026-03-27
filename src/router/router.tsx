@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
-import EditTask from "../pages/EditTask"
-import ListTasks from "../pages/ListTasks"
 import NavLayout from "../components/NavLayout"
+import PageListTasksMovies from "../pages/ListTasksMovies";
+import PageEditTaskMovie from "../pages/FormTaskMovie";
 
 export const router = createBrowserRouter([
     {
@@ -9,12 +9,12 @@ export const router = createBrowserRouter([
         element: <NavLayout/>,
         children:[
             {
-                path:'form',
-                element:<EditTask/>
+                path:'list',
+                element:<PageListTasksMovies/>
             },
             {
-                path:'list',
-                element:<ListTasks/>
+                path:'form',
+                element:<PageEditTaskMovie/>
             }
         ]
     },

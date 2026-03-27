@@ -34,7 +34,7 @@ export default function App(){
     <TasksContext.Provider value={valueTasksContext}>
         <Card 
             sx={{
-                display: 'grid',
+                display: 'flex',
                 width: "flex",
                 height: 'flex',
                 m:25,

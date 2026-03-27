@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { NavLink, Outlet } from "react-router-dom";
-import Bouton from "./Button";
+import Bouton from "../ui/Button";
 
 export default function NavLayout(){
     return(
@@ -12,8 +12,7 @@ export default function NavLayout(){
                             <Bouton
                                 type="button"
                                 buttonText ="Liste"
-                                txtColor="white"
-                                bgcolor="black"
+                                variant="outlined"
                             />
                         </NavLink> 
 
@@ -21,8 +20,7 @@ export default function NavLayout(){
                             <Bouton 
                                 type="button"
                                 buttonText ="Formulaire"
-                                txtColor="white"
-                                bgcolor="black"
+                                variant="outlined"
                             /> 
                         </NavLink>
                     </Box>
@@ -31,4 +29,4 @@ export default function NavLayout(){
             <div><Outlet/></div>
         </>
     )
-}        
+}
