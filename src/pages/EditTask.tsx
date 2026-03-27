@@ -39,7 +39,6 @@ export default function EditTask(){
           alignItems: "center"
         }}
         >
-
             <Box
                 component="form"
                 onSubmit={handleSubmit(onSubmit)}

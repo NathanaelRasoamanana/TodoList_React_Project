@@ -1,9 +1,10 @@
 import { useState } from "react";
-import ListTasks from "./ui/ListTasks";
 import type { TaskProps } from "./types/TaskProps";
-import EditTask from "./ui/EditTask";
+import ListTasks from "./pages/ListTasks";
+import EditTask from "./pages/EditTask";
 import { TasksContext } from "./context/TasksContext";
 import { Card } from "@mui/material";
+import { Routes, Route } from "react-router-dom";
 
 export default function App(){
 
@@ -19,7 +20,6 @@ export default function App(){
     {
       id: crypto.randomUUID(),
       title: "Second task ", 
-      // description:"La seconde tâche à faire... ",
       date : "2026-04-25T00:00", 
       done:false,
       late:false
@@ -43,8 +43,11 @@ export default function App(){
                 p:2,
           }}
         >
-          <EditTask/>  
-          <ListTasks/>
+          <Routes>
+              <Route path="/" element={<ListTasks />} />
+              <Route path="/form" element={<EditTask />} />
+          </Routes>
+
         </Card>
       </>
     </TasksContext.Provider>
