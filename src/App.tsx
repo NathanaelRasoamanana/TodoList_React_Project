@@ -3,8 +3,6 @@ import { router } from "./router/router";
 import type { TaskProps } from "./types/TaskProps";
 import { useState } from "react";
 import { TasksContext } from "./context/TasksContext";
-import { Card } from "@mui/material";
-
 export default function App(){
 
   const[tasks, setTasks] = useState<TaskProps[]>([
@@ -32,17 +30,7 @@ export default function App(){
     
   return (
     <TasksContext.Provider value={valueTasksContext}>
-        <Card 
-            sx={{
-                display: 'flex',
-                width: "flex",
-                height: 'flex',
-                m:25,
-                p:2,
-            }}
-        >
-            <RouterProvider router= {router}/>  
-        </Card>
+        <RouterProvider router= {router}/>  
     </TasksContext.Provider>
   ) 
 }

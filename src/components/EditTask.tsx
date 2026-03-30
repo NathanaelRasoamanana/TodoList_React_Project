@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { TasksContext } from "../context/TasksContext";
-import { Box,Container,TextField, Typography } from "@mui/material";
+import { Box,Card,Container,TextField, Typography } from "@mui/material";
 import Bouton from "../ui/Button";
 import {Controller, useForm} from 'react-hook-form';
 
@@ -31,14 +31,16 @@ export default function EditTask(){
     };
 
     return(
- 
-        <Container 
-          maxWidth="sm" sx={{
-          display: "grid", 
-          justifyContent: "center", 
-          alignItems: "center"
-        }}
+        <Card sx={{
+                display: 'flex',
+                alignItems:"center",
+                justifyContent:"center",
+                m:2,
+                p:2,
+                gap:10,
+            }}
         >
+ 
             <Box
                 component="form"
                 onSubmit={handleSubmit(onSubmit)}
@@ -125,8 +127,7 @@ export default function EditTask(){
                     bgcolor="black"
                 />                  
 
-            </Box>
-            
-        </Container>
+            </Box>   
+    </Card>
     )
 }

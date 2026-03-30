@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { ApiProps } from "../types/ApiProps";
 import { getShows } from "../api/tvmaze";
+import { Card } from "@mui/material";
 
 export default function ListMovies() {
   const [shows, setShows] = useState<ApiProps[]>([]);
@@ -10,11 +11,11 @@ export default function ListMovies() {
   }, []);
 
   return (
-    <div
-      style={{
+    <Card
+      sx={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fill, 220px)",
-        gap: 20,
+        gap: 5,
         padding: 2,
         justifyContent: "center"
       }}
@@ -33,6 +34,6 @@ export default function ListMovies() {
           <p>Genres : {show.genres.join(", ")}</p>
         </div>
       ))}
-    </div>
+    </Card>
   );
 }
