@@ -13,7 +13,7 @@ export const router = createBrowserRouter([
                 element:<PageListTasksMovies/>
             },
             {
-                path:'form',
+                path:"/form/:id",
                 element:<PageEditTaskMovie/>
             }
         ]

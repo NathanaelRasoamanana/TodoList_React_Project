@@ -1,8 +1,15 @@
 import { Box } from "@mui/material";
 import { NavLink, Outlet } from "react-router-dom";
 import Bouton from "../ui/Button";
+import { MoviesContext } from "../context/MoviesContext";
+import { useState } from "react";
+import type { ApiProps } from "../types/ApiProps";
 
 export default function NavLayout(){
+
+  const [movies, setMovies] = useState<ApiProps[]>([]);
+  const valueMoviesContext = { movies, setMovies };
+
     return(
         <>
             <header>
@@ -26,7 +33,10 @@ export default function NavLayout(){
                     </Box>
                 </nav>
             </header>
-            <div><Outlet/></div>
+            
+        <MoviesContext.Provider value={valueMoviesContext}>
+            <Outlet /> 
+        </MoviesContext.Provider>
         </>
     )
 }

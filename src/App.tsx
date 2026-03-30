@@ -3,6 +3,7 @@ import { router } from "./router/router";
 import type { TaskProps } from "./types/TaskProps";
 import { useState } from "react";
 import { TasksContext } from "./context/TasksContext";
+
 export default function App(){
 
   const[tasks, setTasks] = useState<TaskProps[]>([
