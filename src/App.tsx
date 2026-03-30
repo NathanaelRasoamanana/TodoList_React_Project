@@ -3,9 +3,11 @@ import { router } from "./router/router";
 import type { TaskProps } from "./types/TaskProps";
 import { useState } from "react";
 import { TasksContext } from "./context/TasksContext";
+import { MoviesContext } from "./context/MoviesContext";
+import type { ApiProps } from "./types/ApiProps";
 
-export default function App(){
-
+export default function App() {
+  
   const[tasks, setTasks] = useState<TaskProps[]>([
       {
         id: crypto.randomUUID(),
@@ -22,16 +24,15 @@ export default function App(){
         done:false,
         late:false
       },
-    ]);
+    ]);  
+  
+  const [movies, setMovies] = useState<ApiProps[]>([]);
 
-    const valueTasksContext = {
-      tasks : tasks,
-      setTasks : setTasks,
-    }
-    
   return (
-    <TasksContext.Provider value={valueTasksContext}>
-        <RouterProvider router= {router}/>  
+    <TasksContext.Provider value={{ tasks, setTasks }}>
+      <MoviesContext.Provider value={{ movies, setMovies }}>
+        <RouterProvider router={router} />
+      </MoviesContext.Provider>
     </TasksContext.Provider>
-  ) 
+  );
 }

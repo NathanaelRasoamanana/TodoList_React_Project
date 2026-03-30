@@ -3,6 +3,8 @@ import { TasksContext } from "../context/TasksContext";
 import { Box,Card,TextField, Typography } from "@mui/material";
 import Bouton from "../ui/Button";
 import {Controller, useForm} from 'react-hook-form';
+import { MoviesContext } from "../context/MoviesContext";
+import { useParams } from "react-router-dom";
 
 type FormField = {
     title:string ; 
@@ -12,13 +14,14 @@ type FormField = {
 
 export default function EditTask(){  
     // Consommation du context
-    const {tasks, setTasks} = useContext(TasksContext);   
+    const {tasks, setTasks} = useContext(TasksContext); 
+    
+    const { id } = useParams(); // je récupère l'id depuis l'URL           
+    const { movies } = useContext(MoviesContext);
+    const movie = movies.find(s => s.id === Number(id)); 
 
-    const {
-        control, 
-        handleSubmit, 
-        reset,
-    } = useForm<FormField>();
+
+    const {control,handleSubmit,reset} = useForm<FormField>();
 
     // J'utilise hook-form pour la gestion du formulaire
     // Il est controllé parce que la fonction reset()
@@ -51,7 +54,7 @@ export default function EditTask(){
                 <Controller
                     name="title"
                     control={control}
-                    defaultValue=""
+                    defaultValue= {movie&&(movie.name)}
                     rules={{
                         required :"Le titre est requis..",
                         minLength:{
@@ -79,8 +82,8 @@ export default function EditTask(){
                     control={control}
                     rules={{
                         maxLength:{
-                            value : 50,
-                            message : "50 caractères maximum"}
+                            value : 150,
+                            message : "150 caractères maximum"}
                     }}
                     render={({field, fieldState})=>(
                         <>
@@ -127,8 +130,7 @@ export default function EditTask(){
                     buttonText ="Ajouter une tâche"
                     txtColor="white"
                     bgcolor="black"
-                />                  
-
+                />       
             </Box>   
     </Card>
     )

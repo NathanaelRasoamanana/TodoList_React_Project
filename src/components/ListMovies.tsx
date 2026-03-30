@@ -1,24 +1,11 @@
-import { useEffect, useState } from "react";
-import type { ApiProps } from "../types/ApiProps";
-import { getShows } from "../api/tvmaze";
 import { Card } from "@mui/material";
 import { Link } from "react-router-dom";
-import { MoviesContext } from "../context/MoviesContext";
+import { useImdb } from "../api/Imdb";
 
 export default function ListMovies() {
-  const [movies, setMovies] = useState<ApiProps[]>([]);
-
-  useEffect(() => {
-    getShows().then(res => setMovies(res.data));
-  }, []);
-
-  const valueMoviesContext = {
-        movies : movies,
-        setMovies : setMovies,
-    }
+  const { movies } = useImdb();
 
   return (
-    <MoviesContext.Provider value={valueMoviesContext}>
 
       <Card
         sx={{
@@ -30,10 +17,6 @@ export default function ListMovies() {
         }}
       >
         {movies.slice(0, 30).map(movie => (
-          // <Link to={{
-          //         pathname:"/form/{movie.id}"
-          // }}>
-            
           <Link
             key={movie.id}
             to={`/form/${movie.id}`}
@@ -41,17 +24,25 @@ export default function ListMovies() {
           >
 
             <Card
-              // key={movie.id}
               sx={{justifyContent:"center",p:2}}
             >
-              <img src={movie.image?.medium} alt={movie.name} width="100%" />
-              <h3>{movie.name}</h3>
+              {movie.primaryImage?.url && (
+              <img
+                  src={movie.primaryImage.url}
+                  alt={movie.primaryTitle}
+                  style={{
+                  width: "100%",
+                  height: "auto",
+                  borderRadius: "6px",
+                  objectFit: "cover",
+                  }}
+              />)}
+              <h3>{movie.primaryTitle}</h3>
               <p>Genres : {movie.genres.join(", ")}</p>
+              <p>Description : {movie.plot}</p>
             </Card>
           </Link>
         ))}
       </Card>
-
-    </MoviesContext.Provider>
   );
 }
