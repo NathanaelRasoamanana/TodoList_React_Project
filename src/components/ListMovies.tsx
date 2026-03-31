@@ -6,43 +6,47 @@ export default function ListMovies() {
   const { movies } = useImdb();
 
   return (
+    <Card
+      sx={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fill, 220px)",
+        gap: 5,
+        padding: 2,
+        justifyContent: "center"
+      }}
+    >
+      {movies.slice(0, 30).map(movie => {
 
-      <Card
-        sx={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, 220px)",
-          gap: 5,
-          padding: 2,
-          justifyContent: "center"
-        }}
-      >
-        {movies.slice(0, 30).map(movie => (
+        return (
           <Link
             key={movie.id}
             to={`/form/${movie.id}`}
             style={{ textDecoration: "none", color: "inherit" }}
           >
-
-            <Card
-              sx={{justifyContent:"center",p:2}}
-            >
+            <Card sx={{ justifyContent: "center", p: 2 }}>
               {movie.primaryImage?.url && (
-              <img
+                <img
                   src={movie.primaryImage.url}
                   alt={movie.primaryTitle}
                   style={{
-                  width: "100%",
-                  height: "auto",
-                  borderRadius: "6px",
-                  objectFit: "cover",
+                    width: "100%",
+                    height: "auto",
+                    borderRadius: "6px",
+                    objectFit: "cover"
                   }}
-              />)}
+                />
+              )}
+
               <h3>{movie.primaryTitle}</h3>
-              <p>Genres : {movie.genres.join(", ")}</p>
               <p>Description : {movie.plot}</p>
+              <p>Start : {movie.startYear}</p>
+              <p>End : {movie.endYear}</p>
+              <p>Type : {movie.type}</p>
+
             </Card>
           </Link>
-        ))}
-      </Card>
+        );
+      })}
+    </Card>
   );
 }

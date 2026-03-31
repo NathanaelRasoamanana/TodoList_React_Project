@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import type { ImdbTitle, ImdbTitlesResponse } from "../brouillon/MoviesType";
+import type { ImdbTitle, ImdbTitlesResponse } from "../types/MoviesType";
 
 
 const api = axios.create({

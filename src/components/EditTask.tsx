@@ -3,8 +3,7 @@ import { TasksContext } from "../context/TasksContext";
 import { Box,Card,TextField, Typography } from "@mui/material";
 import Bouton from "../ui/Button";
 import {Controller, useForm} from 'react-hook-form';
-import { MoviesContext } from "../context/MoviesContext";
-import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 type FormField = {
     title:string ; 
@@ -16,11 +15,6 @@ export default function EditTask(){
     // Consommation du context
     const {tasks, setTasks} = useContext(TasksContext); 
     
-    const { id } = useParams(); // je récupère l'id depuis l'URL           
-    const { movies } = useContext(MoviesContext);
-    const movie = movies.find(s => s.id === Number(id)); 
-
-
     const {control,handleSubmit,reset} = useForm<FormField>();
 
     // J'utilise hook-form pour la gestion du formulaire
@@ -34,16 +28,26 @@ export default function EditTask(){
     };
 
     return(
-        
+        <>
+
+        <div>
+            <Link to="/list">
+                <Bouton
+                    type="button"
+                    variant="outlined"
+                    buttonText="Liste"
+                />
+            </Link>    
+        </div> 
+            
+
         <Card sx={{
-                display: 'flex',
-                alignItems:"center",
-                justifyContent:"center",
-                m:2,
-                p:2,
-                gap:10,
-            }}
-        >
+            display: 'grid',
+            alignItems:"center",
+            justifyContent:"center",
+            p:2,
+            gap:20,
+        }}>
 
             <Box
                 component="form"
@@ -54,7 +58,7 @@ export default function EditTask(){
                 <Controller
                     name="title"
                     control={control}
-                    defaultValue= {movie&&(movie.name)}
+                    defaultValue= ""
                     rules={{
                         required :"Le titre est requis..",
                         minLength:{
@@ -132,6 +136,7 @@ export default function EditTask(){
                     bgcolor="black"
                 />       
             </Box>   
-    </Card>
+        </Card>
+    </>
     )
 }

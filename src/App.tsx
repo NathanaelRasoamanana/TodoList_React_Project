@@ -3,8 +3,6 @@ import { router } from "./router/router";
 import type { TaskProps } from "./types/TaskProps";
 import { useState } from "react";
 import { TasksContext } from "./context/TasksContext";
-import { MoviesContext } from "./context/MoviesContext";
-import type { ApiProps } from "./types/ApiProps";
 
 export default function App() {
   
@@ -25,14 +23,10 @@ export default function App() {
         late:false
       },
     ]);  
-  
-  const [movies, setMovies] = useState<ApiProps[]>([]);
 
   return (
     <TasksContext.Provider value={{ tasks, setTasks }}>
-      <MoviesContext.Provider value={{ movies, setMovies }}>
         <RouterProvider router={router} />
-      </MoviesContext.Provider>
     </TasksContext.Provider>
   );
 }
