@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
-import { Card } from "@mui/material";
+import { Box, Card } from "@mui/material";
 import { useImdb } from "../api/Imdb";
+import Bouton from "../ui/Button";
 
 export default function SingleMovie() {
   const { id } = useParams(); 
@@ -12,27 +13,33 @@ export default function SingleMovie() {
     <>
       {movie && (
         <Card sx={{ 
-          justifyContent: "center", 
+          justifyContent:"center", 
           p: 2 ,
           display:"grid",
-          gridTemplateColumns: "repeat(auto-fill, 220px)",
+          gridTemplateColumns: "repeat(auto-fill, 300px)",
 
           }}>
           
           <h3>{movie.primaryTitle}</h3>
           <p>{movie.plot}</p>
-          {movie.primaryImage?.url && (
-            <img
-                src={movie.primaryImage.url}
-                alt={movie.primaryTitle}
-                style={{
-                  width: "100%",
-                  height: "auto",
-                  borderRadius: "6px",
-                  objectFit: "cover",
-                }}
-            />
-            )}         
+
+          <Box sx={{
+            display:"grid",
+            m:2,
+            gap:1
+          }}>
+            
+              {movie.dates?.map(date => (
+                <>
+                  <Bouton 
+                      key={movie.id}
+                      type="button"
+                      variant="outlined"
+                      buttonText ={date}
+                  />  
+                </>
+              ))} 
+          </Box>         
         </Card>
       )}
     </>

@@ -38,10 +38,6 @@ export default function ListMovies() {
               )}
 
               <h3>{movie.primaryTitle}</h3>
-              <p>Description : {movie.plot}</p>
-              <p>Start : {movie.startYear}</p>
-              <p>End : {movie.endYear}</p>
-              <p>Type : {movie.type}</p>
 
             </Card>
           </Link>
