@@ -3,7 +3,6 @@ import axios from "axios";
 import type { ImdbTitle, ImdbTitlesResponse } from "../types/MoviesType";
 import { randomDateGenerator } from "../data/dates";
 
-
 const api = axios.create({
   baseURL:"https://api.imdbapi.dev/"
 })
@@ -32,5 +31,5 @@ export function useImdb() {
       .catch((err) => console.error(err))
   }, []);
 
-  return { movies };
-}
+  return {movies} 
+};

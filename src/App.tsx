@@ -25,8 +25,10 @@ export default function App() {
     ]);  
 
   return (
-    <TasksContext.Provider value={{ tasks, setTasks }}>
-        <RouterProvider router={router} />
-    </TasksContext.Provider>
+    <>
+      <TasksContext.Provider value={{ tasks, setTasks }}>
+          <RouterProvider router={router} />
+      </TasksContext.Provider>
+    </>
   );
 }

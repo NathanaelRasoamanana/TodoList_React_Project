@@ -3,7 +3,10 @@ import { TasksContext } from "../context/TasksContext";
 import { Box,Card,TextField, Typography } from "@mui/material";
 import Bouton from "../ui/Button";
 import {Controller, useForm} from 'react-hook-form';
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useImdb } from "../api/Imdb";
+import { useEffect } from "react";
+
 
 type FormField = {
     title:string ; 
@@ -14,9 +17,28 @@ type FormField = {
 export default function EditTask(){  
     // Consommation du context
     const {tasks, setTasks} = useContext(TasksContext); 
-    
-    const {control,handleSubmit,reset} = useForm<FormField>();
 
+    const { control, handleSubmit, reset } = useForm<FormField>({
+        defaultValues: {
+            title: "",
+            description: "",
+            date: ""
+        }
+    });
+
+    const { id } = useParams(); 
+    const { movies } = useImdb();
+    const movie = movies.find(s => s.id === id); 
+
+    useEffect(() => {
+        if (movie) {
+            reset({
+            title: movie.primaryTitle ??"",
+            description: "",
+            date: ""
+            });
+    }}, [movie]);
+    
     // J'utilise hook-form pour la gestion du formulaire
     // Il est controllé parce que la fonction reset()
     // ne fonctionne pas correctement sinon
@@ -58,7 +80,6 @@ export default function EditTask(){
                 <Controller
                     name="title"
                     control={control}
-                    defaultValue= ""
                     rules={{
                         required :"Le titre est requis..",
                         minLength:{
@@ -67,8 +88,8 @@ export default function EditTask(){
                     }}
                     render={({field, fieldState})=>(
                         <>
-                            <TextField              
-                                label="Titre de la tâche..."
+                            <TextField 
+                                label="Ajouter le nom du film"             
                                 {...field} 
                             />
                                 {fieldState.error && (
@@ -131,7 +152,7 @@ export default function EditTask(){
 
                 <Bouton 
                     type="submit"
-                    buttonText ="Ajouter une tâche"
+                    buttonText ="Ajouter à ma liste"
                     txtColor="white"
                     bgcolor="black"
                 />       
