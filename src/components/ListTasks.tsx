@@ -2,11 +2,14 @@ import { useContext, useEffect, useMemo, useState } from "react";
 import Task from "./Task";
 import { TasksContext } from "../context/TasksContext";
 import Card from '@mui/material/Card';
-import { Box } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 import CheckIcon from '@mui/icons-material/Check';
 import ToggleButton from '@mui/material/ToggleButton';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import Bouton from "../ui/Button";
+import { Label } from "@mui/icons-material";
+import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
 export default function ListTasks(){  
     // Consommation du context
@@ -37,6 +40,14 @@ export default function ListTasks(){
                 (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
             );
         }
+
+        if (sortBy === "date-asc") {
+            return [...tasks].sort(
+            (a, b) =>
+                new Date(a.date).getTime() - new Date(b.date).getTime()
+            );
+        }
+
         return tasks;
     }, [tasks, sortBy]);
 
@@ -64,21 +75,32 @@ export default function ListTasks(){
                 }}
             >
                 <Box sx={{p:1, gap:1, display: "flex", justifyContent: 'flex-end'}} >
+                    
                     <Bouton
                         type="button"
-                        buttonText ="Par date"
+                        buttonText ="Les plus loin"
                         txtColor="white"
                         bgcolor="black"
                         onClick={() => setSortBy("date-desc")}
                     />
 
-                    <Bouton 
+                    <Bouton
                         type="button"
-                        buttonText ="Par ajout"
+                        buttonText ="Les plus proches"
                         txtColor="white"
                         bgcolor="black"
-                        onClick={() => setSortBy("none")}
-                    /> 
+                        onClick={() => setSortBy("date-asc")}
+                    />
+
+                    <ToggleButton
+                        value="check"
+                        selected={true}
+                        onChange={() => setSortBy("none")}
+                    >
+                        <FilterAltOffIcon />                                  
+                    </ToggleButton>
+
+                   
                 </Box>
 
                 {sortedTasks.map((task) => (

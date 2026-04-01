@@ -1,20 +1,15 @@
 import { Card } from "@mui/material";
 import EditTask from "../components/EditTask";
 import SingleMovie from "../components/SingleMovie";
-import { useState } from "react";
-import { MoviesContext } from "../context/MoviesContext";
-import type { ImdbTitle } from "../types/MoviesType";
 
 export default function PageEditTaskMovie(){
 
-  const[films, setFilms] = useState<ImdbTitle[]>([])
-
     return(
         <>
-        <MoviesContext.Provider value={{films, setFilms}}>
             <Card sx={{
-                        display: 'flex',
+                        display: 'grid',
                         justifyContent:"center",
+                        alignContent:"center",
                         m:2,
                         p:2,
                         gap:2,
@@ -23,7 +18,6 @@ export default function PageEditTaskMovie(){
                 <EditTask/>
                 <SingleMovie/>
             </Card> 
-        </MoviesContext.Provider>  
         </>
     )
 }

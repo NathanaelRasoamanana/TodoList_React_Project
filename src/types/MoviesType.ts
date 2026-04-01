@@ -19,6 +19,7 @@ export type ImdbTitle = {
   rating?: ImdbRating;
   plot?: string;
   dates : string[];
+  myDate : string;
 }
 
 export type ImdbTitlesResponse = {

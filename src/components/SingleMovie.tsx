@@ -1,76 +1,51 @@
 import { useParams } from "react-router-dom";
 import { Box, Card } from "@mui/material";
-// import { useImdb } from "../api/Imdb";
 import Bouton from "../ui/Button";
-import { useContext, useEffect } from "react";
-import { MoviesContext } from "../context/MoviesContext";
-import axios from "axios";
-import type { ImdbTitle, ImdbTitlesResponse } from "../types/MoviesType";
-import { randomDateGenerator } from "../data/dates";
+import { useImdbContext } from "../context/ImdbContext";
 
 export default function SingleMovie() {
-  const { id } = useParams(); 
-  const { films , setFilms} = useContext(MoviesContext);
+  const { id } = useParams<{ id: string }>();
+  const { movies, setMovies } = useImdbContext();
 
-  const film = films.find(s => s.id === id); 
+  const film = movies.find(movie => movie.id === id);
 
-  const api = axios.create({
-    baseURL:"https://api.imdbapi.dev/"
-  })
+  const handleAddDate = (date: string) => {
+    if (!id) return;
 
-  useEffect(() => {
-  
-      api
-        .get<ImdbTitlesResponse>("/titles")
-        .then((res) => {
-          const list = res.data.titles ?? [];
-  
-          // Déduplication via Map
-          const unique = new Map<string, ImdbTitle>();
-          [...films, ...list].forEach((film) => unique.set(film.id, movie));
-  
-          const uniqueMovies = Array.from(unique.values()).map((film) => ({
-            ...film,
-            dates: randomDateGenerator(1,5)
-          }));
-  
-          setFilms(uniqueMovies);
-        })
-        .catch((err) => console.error(err))
-    }, []);
-  
+    setMovies(prev =>
+      prev.map(movie =>
+        movie.id === id
+          ? { ...movie, myDate: date }
+          : movie
+      )
+    );
+  };
+
+  if (!film) return <p>Film introuvable</p>;
 
   return (
-    <>
-      {film && (
-        <Card sx={{ 
-          justifyContent: "center", 
-          p: 2 ,
-          display:"grid",
-          gridTemplateColumns: "repeat(auto-fill, 300px)",
+    <Card sx={{ p: 2, display: "grid", gap: 2 }}>
+      <h3>{film.primaryTitle}</h3>
 
-          }}>
-          
-          <h3>{film.primaryTitle}</h3>
-          <p>{film.plot}</p>
+      {film.plot && <p>{film.plot}</p>}
 
-          <Box sx={{
-            display:"grid",
-            m:2,
-            gap:1
-          }}>
-              
-            {film.dates?.map(date => (
-              <Bouton 
-                key={crypto.randomUUID()}
-                type="button"
-                variant="outlined"
-                buttonText ={date}
-              />))}
-
-            </Box>         
-        </Card>
+      {film.myDate && (
+        <p>
+          Date sélectionnée : <strong>{film.myDate}</strong>
+        </p>
       )}
-    </>
+
+      <Box sx={{ display: "grid", gap: 1 }}>
+        {film.dates.map(date => (
+          <Bouton
+            key={`${film.id}-${date}`}
+            variant="outlined"
+            type="button"
+            buttonText={date}
+            onClick={() => handleAddDate(date)}
+          />
+        ))}
+      </Box>
+    </Card>
   );
 }

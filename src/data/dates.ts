@@ -10,16 +10,9 @@ export function randomDateGenerator(
   for (let i = 0; i < count; i++) {
     const randomDays = Math.floor(Math.random() * 365) + 1;
     const future = new Date(now + randomDays * 24 * 60 * 60 * 1000);
-  
-    const yyyy = future.getFullYear();
-    const mm = String(future.getMonth() + 1).padStart(2, "0");
-    const dd = String(future.getDate()).padStart(2, "0");
-    const hh = String(future.getHours()).padStart(2, "0");
-    const min = String(future.getMinutes()).padStart(2, "0");
 
-    dates.push(`${yyyy}/${mm}/${dd} ${hh}:${min}`);
+    dates.push(future.toISOString().slice(0, 16));
   }
 
   return dates;
 }
-``

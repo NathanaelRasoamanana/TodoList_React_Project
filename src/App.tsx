@@ -3,6 +3,7 @@ import { router } from "./router/router";
 import type { TaskProps } from "./types/TaskProps";
 import { useState } from "react";
 import { TasksContext } from "./context/TasksContext";
+import { ImdbProvider } from "./api/ImdbProvider";
 
 export default function App() {
   
@@ -26,9 +27,11 @@ export default function App() {
 
   return (
     <>
-      <TasksContext.Provider value={{ tasks, setTasks }}>
-          <RouterProvider router={router} />
-      </TasksContext.Provider>
+      <ImdbProvider>
+        <TasksContext.Provider value={{ tasks, setTasks }}>
+            <RouterProvider router={router} />
+        </TasksContext.Provider>
+      </ImdbProvider>  
     </>
   );
 }
