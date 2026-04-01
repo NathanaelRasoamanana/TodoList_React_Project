@@ -26,6 +26,7 @@ export default function App() {
     ]);  
 
   return (
+    //J'englobe mes pages avec mes providers pour qu'elles bénéficient toutes de mes différents contexts 
     <>
       <ImdbProvider>
         <TasksContext.Provider value={{ tasks, setTasks }}>

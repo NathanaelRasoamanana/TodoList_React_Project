@@ -12,11 +12,11 @@ type FormField = {
   date: string;
 };
 
+//Formulaire d'ajout d'un film
 export default function EditTask() {
   const { setTasks } = useContext(TasksContext);
-  const { movies } = useImdbContext();
+  const { movies } = useImdbContext();//fonction qui contient mon context pour les films
   const { id } = useParams(); 
-
 
   const movie = movies.find(m => m.id === id);
 
@@ -26,6 +26,7 @@ export default function EditTask() {
 
   const navigate = useNavigate();
 
+  //useEffect permettent de pré-remplir les champs du formlulaire avec les données de film sélectionné
   useEffect(() => {
     if (movie) {
       reset({

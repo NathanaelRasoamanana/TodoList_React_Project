@@ -8,6 +8,8 @@ const api = axios.create({
   baseURL: "https://api.imdbapi.dev/",
 });
 
+//J'appelle mon API et j'en fais un provider pour pouvoir uitliser mes opérations dessus via un context 
+//Utile pour les données fictives que j'ajoute à ImdbTitle
 export function ImdbProvider({ children }: { children: React.ReactNode }) {
   const [movies, setMovies] = useState<ImdbTitle[]>([]);
 

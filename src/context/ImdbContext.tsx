@@ -8,6 +8,7 @@ export type ImdbContextType = {
 
 export const ImdbContext = createContext<ImdbContextType | null>(null);
 
+//fonction que j'appelle quand je veux utiliser mon context ImdbContext
 export const useImdbContext = () => {
   const context = useContext(ImdbContext);
   if (!context) {

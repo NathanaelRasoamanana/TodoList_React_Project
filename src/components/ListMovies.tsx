@@ -2,6 +2,7 @@ import { Card } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useImdbContext } from "../context/ImdbContext";
 
+//Composant pour afficher la liste des films
 export default function ListMovies() {
   const { movies } = useImdbContext();
   

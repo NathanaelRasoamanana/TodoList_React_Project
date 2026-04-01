@@ -3,9 +3,10 @@ import { Box, Card } from "@mui/material";
 import Bouton from "../ui/Button";
 import { useImdbContext } from "../context/ImdbContext";
 
+//Composant pour afficher un film via son id depuis l'url
 export default function SingleMovie() {
   const { id } = useParams<{ id: string }>();
-  const { movies, setMovies } = useImdbContext();
+  const { movies, setMovies } = useImdbContext();//contient mon context pour les films
 
   const movie = movies.find(movie => movie.id === id);
 
