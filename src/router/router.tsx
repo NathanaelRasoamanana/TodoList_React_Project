@@ -4,17 +4,11 @@ import PageEditTaskMovie from "../pages/FormTaskMovie";
 
 export const router = createBrowserRouter([
     {
-        path: "/",
-        // element:<Home/>,
-        children:[
-            {
-                path:'list',
-                element:<PageListTasksMovies/>
-            },
-            {
-                path:"/form/:id",
-                element:<PageEditTaskMovie/>
-            }
-        ]
+        path:'/',
+        element:<PageListTasksMovies/>
     },
+    {
+        path:"/form/:id",
+        element:<PageEditTaskMovie/>
+    }
 ])

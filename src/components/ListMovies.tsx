@@ -1,10 +1,10 @@
 import { Card } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useImdb } from "../api/Imdb";
+import { useImdbContext } from "../context/ImdbContext";
 
 export default function ListMovies() {
-  const { movies } = useImdb();
-
+  const { movies } = useImdbContext();
+  
   return (
     <Card
       sx={{

@@ -23,7 +23,7 @@ export function ImdbProvider({ children }: { children: React.ReactNode }) {
           [...prev, ...list].forEach(movie => {
             map.set(movie.id, {
               ...movie,
-              dates: movie.dates ?? randomDateGenerator(1, 5),
+              dates : randomDateGenerator(1,5),
               myDate: movie.myDate, 
             });
           });
@@ -32,6 +32,7 @@ export function ImdbProvider({ children }: { children: React.ReactNode }) {
         });
       })
       .catch(console.error);
+
   }, []);
 
   return (

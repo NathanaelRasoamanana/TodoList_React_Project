@@ -7,7 +7,7 @@ export default function SingleMovie() {
   const { id } = useParams<{ id: string }>();
   const { movies, setMovies } = useImdbContext();
 
-  const film = movies.find(movie => movie.id === id);
+  const movie = movies.find(movie => movie.id === id);
 
   const handleAddDate = (date: string) => {
     if (!id) return;
@@ -21,24 +21,22 @@ export default function SingleMovie() {
     );
   };
 
-  if (!film) return <p>Film introuvable</p>;
+  if (!movie) return <p>Film introuvable</p>;
 
   return (
-    <Card sx={{ p: 2, display: "grid", gap: 2 }}>
-      <h3>{film.primaryTitle}</h3>
-
-      {film.plot && <p>{film.plot}</p>}
-
-      {film.myDate && (
-        <p>
-          Date sélectionnée : <strong>{film.myDate}</strong>
-        </p>
-      )}
-
+    <Card sx={{ p: 2, display: "grid" }}>
+      <h1>{movie.primaryTitle}</h1>       
+      {movie.plot && <p>{movie.plot}</p>}
+              
       <Box sx={{ display: "grid", gap: 1 }}>
-        {film.dates.map(date => (
+        {movie.myDate && (
+                <p>
+                  Date sélectionnée : <strong>{movie.myDate}</strong>
+                </p>
+              )}
+        {movie.dates.map(date => (
           <Bouton
-            key={`${film.id}-${date}`}
+            key={`${movie.id}-${date}`}
             variant="outlined"
             type="button"
             buttonText={date}

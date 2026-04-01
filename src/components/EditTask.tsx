@@ -49,14 +49,14 @@ export default function EditTask() {
       },
     ]);
     reset();
-    navigate("/list")
+    navigate("/")
   };
 
     return(
     <>
 
         <div>
-            <Link to="/list">
+            <Link to="/">
                 <Bouton
                     type="button"
                     variant="outlined"

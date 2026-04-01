@@ -2,14 +2,12 @@ import { useContext, useEffect, useMemo, useState } from "react";
 import Task from "./Task";
 import { TasksContext } from "../context/TasksContext";
 import Card from '@mui/material/Card';
-import { Box, TextField } from "@mui/material";
+import { Box } from "@mui/material";
 import CheckIcon from '@mui/icons-material/Check';
 import ToggleButton from '@mui/material/ToggleButton';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import Bouton from "../ui/Button";
-import { Label } from "@mui/icons-material";
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
 export default function ListTasks(){  
     // Consommation du context
@@ -99,7 +97,6 @@ export default function ListTasks(){
                     >
                         <FilterAltOffIcon />                                  
                     </ToggleButton>
-
                    
                 </Box>
 
