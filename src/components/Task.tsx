@@ -27,7 +27,7 @@ export default function Task({title,date,description,done,late}:TaskProps){
                         )}
                     </Typography>
                     <Typography 
-                        variant="body2" 
+                        variant="h6" 
                         color="text.secondary"                         
                         sx={{ textDecoration: done? "line-through":"none"}}
                     >

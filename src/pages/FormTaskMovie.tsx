@@ -1,33 +1,24 @@
 import { Card } from "@mui/material";
 import EditTask from "../components/EditTask";
 import SingleMovie from "../components/SingleMovie";
-import { Link } from "react-router-dom";
-import Bouton from "../ui/Button";
 
+//page qui combine l'affichage du formulaire et les détails d'un film
 export default function PageEditTaskMovie(){
+
     return(
         <>
             <Card sx={{
                         display: 'grid',
-                        // width: "flex",
-                        // height: 'flex',
                         justifyContent:"center",
+                        alignContent:"center",
                         m:2,
                         p:2,
                         gap:2,
                     }}
             >
-                    <Link to="/list">
-                        <Bouton
-                            type="button"
-                            variant="outlined"
-                            buttonText="Liste"
-                        />
-                    </Link>
-
                 <EditTask/>
                 <SingleMovie/>
-            </Card>   
+            </Card> 
         </>
     )
 }

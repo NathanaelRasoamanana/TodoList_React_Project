@@ -1,27 +1,27 @@
-export interface ImdbImage {
+export type ImdbImage = {
   url: string;
   width: number;
   height: number;
   type: string;
 }
 
-export interface ImdbRating {
+export type ImdbRating = {
   aggregateRating: number;
   voteCount: number;
 }
 
-export interface ImdbTitle {
+export type ImdbTitle = {
   id: string;
   type: string;
   primaryTitle: string;
   primaryImage?: ImdbImage;
-  startYear: number;
-  endYear?: number;
   genres: string[];
   rating?: ImdbRating;
   plot?: string;
+  dates : string[];
+  myDate : string;
 }
 
-export interface ImdbTitlesResponse {
+export type ImdbTitlesResponse = {
   titles: ImdbTitle[];
 }

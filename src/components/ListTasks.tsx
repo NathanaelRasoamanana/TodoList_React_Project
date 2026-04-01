@@ -7,6 +7,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import ToggleButton from '@mui/material/ToggleButton';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import Bouton from "../ui/Button";
+import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 
 export default function ListTasks(){  
     // Consommation du context
@@ -37,6 +38,14 @@ export default function ListTasks(){
                 (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
             );
         }
+
+        if (sortBy === "date-asc") {
+            return [...tasks].sort(
+            (a, b) =>
+                new Date(a.date).getTime() - new Date(b.date).getTime()
+            );
+        }
+
         return tasks;
     }, [tasks, sortBy]);
 
@@ -64,21 +73,31 @@ export default function ListTasks(){
                 }}
             >
                 <Box sx={{p:1, gap:1, display: "flex", justifyContent: 'flex-end'}} >
+                    
                     <Bouton
                         type="button"
-                        buttonText ="Par date"
+                        buttonText ="Les plus loin"
                         txtColor="white"
                         bgcolor="black"
                         onClick={() => setSortBy("date-desc")}
                     />
 
-                    <Bouton 
+                    <Bouton
                         type="button"
-                        buttonText ="Par ajout"
+                        buttonText ="Les plus proches"
                         txtColor="white"
                         bgcolor="black"
-                        onClick={() => setSortBy("none")}
-                    /> 
+                        onClick={() => setSortBy("date-asc")}
+                    />
+
+                    <ToggleButton
+                        value="check"
+                        selected={true}
+                        onChange={() => setSortBy("none")}
+                    >
+                        <FilterAltOffIcon />                                  
+                    </ToggleButton>
+                   
                 </Box>
 
                 {sortedTasks.map((task) => (

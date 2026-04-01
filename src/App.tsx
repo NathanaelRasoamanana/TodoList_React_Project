@@ -3,8 +3,7 @@ import { router } from "./router/router";
 import type { TaskProps } from "./types/TaskProps";
 import { useState } from "react";
 import { TasksContext } from "./context/TasksContext";
-import { MoviesContext } from "./context/MoviesContext";
-import type { ApiProps } from "./types/ApiProps";
+import { ImdbProvider } from "./api/ImdbProvider";
 
 export default function App() {
   
@@ -25,14 +24,15 @@ export default function App() {
         late:false
       },
     ]);  
-  
-  const [movies, setMovies] = useState<ApiProps[]>([]);
 
   return (
-    <TasksContext.Provider value={{ tasks, setTasks }}>
-      <MoviesContext.Provider value={{ movies, setMovies }}>
-        <RouterProvider router={router} />
-      </MoviesContext.Provider>
-    </TasksContext.Provider>
+    //J'englobe mes pages avec mes providers pour qu'elles bénéficient toutes de mes différents contexts 
+    <>
+      <ImdbProvider>
+        <TasksContext.Provider value={{ tasks, setTasks }}>
+            <RouterProvider router={router} />
+        </TasksContext.Provider>
+      </ImdbProvider>  
+    </>
   );
 }
